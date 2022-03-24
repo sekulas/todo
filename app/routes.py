@@ -3,6 +3,10 @@ from app import app
 from app.models import Todo
 from app import db
 
+@app.before_first_request
+def create_tables():
+	db.create_all()
+
 @app.route('/') 
 def index():
     incomplete = Todo.query.filter_by(complete=False).all()
